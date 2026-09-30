@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dev Fitness</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#101010;
+  color:white;
+  line-height:1.6;
+}
+
+header{
+  background:linear-gradient(135deg,#00c853,#00695c);
+  text-align:center;
+  padding:35px 15px;
+}
+
+header h1{
+  font-size:38px;
+}
+
+header p{
+  margin-top:5px;
+}
+
+.container{
+  width:92%;
+  max-width:900px;
+  margin:auto;
+}
+
+.card{
+  background:#1d1d1d;
+  margin:20px 0;
+  padding:22px;
+  border-radius:18px;
+  box-shadow:0 5px 20px #000;
+}
+
+.card h2{
+  color:#00e676;
+  margin-bottom:15px;
+}
+
+.step{
+  background:#292929;
+  margin:10px 0;
+  padding:15px;
+  border-radius:12px;
+}
+
+.step b{
+  color:#00e676;
+}
+
+button{
+  background:#00e676;
+  color:#000;
+  border:0;
+  padding:11px 18px;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+  margin:5px;
+}
+
+button:hover{
+  transform:scale(1.03);
+}
+
+.timer{
+  text-align:center;
+}
+
+#timer{
+  font-size:55px;
+  color:#00e676;
+  margin:15px;
+}
+
+.water{
+  text-align:center;
+}
+
+.water-count{
+  font-size:30px;
+  color:#00e676;
+  margin:10px;
+}
+
+.progress-bg{
+  height:25px;
+  background:#333;
+  border-radius:20px;
+  overflow:hidden;
+  margin:12px 0;
+}
+
+#progressBar{
+  width:0%;
+  height:100%;
+  background:#00e676;
+  transition:.4s;
+}
+
+.points{
+  text-align:center;
+  font-size:25px;
+  color:#00e676;
+}
+
+footer{
+  background:#080808;
+  text-align:center;
+  padding:25px;
+  margin-top:25px;
+  color:#aaa;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>💪 DEV FITNESS</h1>
+  <p>Beginner Friendly Fitness Website</p>
+</header>
+
+<div class="container">
+
+<!-- WORKOUT -->
+<div class="card">
+<h2>🏋️ Step-by-Step Workout</h2>
+
+<div class="step">
+<b>Step 1 — Warm Up</b>
+<p>हल्की चाल या आसान movement से 5 मिनट शरीर को तैयार करें।</p>
+</div>
+
+<div class="step">
+<b>Step 2 — Squats</b>
+<p>आराम से नीचे जाएँ और फिर ऊपर आएँ। शुरुआत में 8–10 repetitions करें।</p>
+<button onclick="addPoint()">✓ Complete +10 Points</button>
+</div>
+
+<div class="step">
+<b>Step 3 — Wall Push-Ups</b>
+<p>दीवार से थोड़ा दूर खड़े होकर हाथों की मदद से धीरे-धीरे push करें।</p>
+<button onclick="addPoint()">✓ Complete +10 Points</button>
+</div>
+
+<div class="step">
+<b>Step 4 — Plank</b>
+<p>शरीर को सीधा रखते हुए थोड़े समय के लिए hold करें।</p>
+<button onclick="addPoint()">✓ Complete +10 Points</button>
+</div>
+
+<div class="step">
+<b>Step 5 — Cool Down</b>
+<p>Workout के बाद धीरे-धीरे आराम करें और हल्की stretching करें।</p>
+<button onclick="addPoint()">✓ Complete +10 Points</button>
+</div>
+
+</div>
+
+
+<!-- FOOD -->
+<div class="card">
+<h2>🥗 Healthy Food Ideas</h2>
+
+<div class="step">
+<b>Step 1 — Breakfast</b>
+<p>दूध/दही, फल, पोहा या घर का सामान्य पौष्टिक नाश्ता।</p>
+</div>
+
+<div class="step">
+<b>Step 2 — Lunch</b>
+<p>दाल, रोटी/चावल और सब्जियों जैसा संतुलित घर का खाना।</p>
+</div>
+
+<div class="step">
+<b>Step 3 — Evening Snack</b>
+<p>फल, दही या दूसरे सामान्य पौष्टिक विकल्प।</p>
+</div>
+
+<div class="step">
+<b>Step 4 — Dinner</b>
+<p>घर का संतुलित खाना लें और बहुत ज्यादा भारी भोजन से बचें।</p>
+</div>
+
+<p style="margin-top:12px;color:#aaa;">
+यह सामान्य healthy-food ideas हैं। शरीर को मजबूत बनाने के लिए खाना बहुत कम करना या meal skip करना जरूरी नहीं है।
+</p>
+
+</div>
+
+
+<!-- WATER -->
+<div class="card water">
+<h2>💧 Water Reminder</h2>
+
+<p>आज कितने पानी के glass पूरे हुए?</p>
+
+<div class="water-count">
+<span id="waterCount">0</span> / 8 Glass
+</div>
+
+<button onclick="addWater()">💧 मैंने पानी पिया</button>
+<button onclick="resetWater()">Reset</button>
+
+</div>
+
+
+<!-- TIMER -->
+<div class="card timer">
+<h2>⏱️ Workout Timer</h2>
+
+<div id="timer">00:30</div>
+
+<button onclick="startTimer()">▶ Start</button>
+<button onclick="pauseTimer()">⏸ Pause</button>
+<button onclick="resetTimer()">↻ Reset</button>
+
+</div>
+
+
+<!-- PROGRESS -->
+<div class="card">
+<h2>📊 Daily Progress</h2>
+
+<div class="points">
+⭐ <span id="points">0</span> Points
+</div>
+
+<p style="margin-top:15px;">Today's Progress</p>
+
+<div class="progress-bg">
+<div id="progressBar"></div>
+</div>
+
+<p id="progressText">0% Complete</p>
+
+</div>
+
+</div>
+
+
+<footer>
+© 2026 Dev Fitness 💪<br>
+Stay Active • Stay Healthy
+</footer>
+
+
+<script>
+
+// POINTS
+let points = 0;
+
+function addPoint(){
+
+  points += 10;
+
+  if(points > 100){
+    points = 100;
+  }
+
+  document.getElementById("points").innerText = points;
+
+  document.getElementById("progressBar").style.width =
+    points + "%";
+
+  document.getElementById("progressText").innerText =
+    points + "% Complete";
+}
+
+
+// WATER
+let water = 0;
+
+function addWater(){
+
+  if(water < 8){
+    water++;
+  }
+
+  document.getElementById("waterCount").innerText = water;
+}
+
+function resetWater(){
+
+  water = 0;
+
+  document.getElementById("waterCount").innerText = water;
+}
+
+
+// TIMER
+let time = 30;
+let timerInterval = null;
+
+function showTimer(){
+
+  let minutes = Math.floor(time / 60);
+  let seconds = time % 60;
+
+  document.getElementById("timer").innerText =
+    String(minutes).padStart(2,"0") + ":" +
+    String(seconds).padStart(2,"0");
+}
+
+function startTimer(){
+
+  if(timerInterval !== null) return;
+
+  timerInterval = setInterval(function(){
+
+    if(time > 0){
+
+      time--;
+      showTimer();
+
+    }else{
+
+      clearInterval(timerInterval);
+      timerInterval = null;
+
+      alert("🎉 Workout Timer Complete!");
+
+    }
+
+  },1000);
+}
+
+function pauseTimer(){
+
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
+function resetTimer(){
+
+  clearInterval(timerInterval);
+  timerInterval = null;
+
+  time = 30;
+
+  showTimer();
+}
+
+showTimer();
+
+</script>
+
+</body>
+</html>
